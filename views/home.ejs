@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Phone World</title>
+  <meta name="description" content="Explore the latest phones and find your perfect match.">
+  <meta name="author" content="Phone World Team">
+  <link rel="stylesheet" href="stylesheet.css">
+  <style>
+    /* Additional styles can be placed here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .phone-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .phone-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .phone-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .phone-card h2 {
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    .phone-card p {
+      margin: 0;
+      color: #666;
+    }
+    .add-game-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .add-game-link:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Ruha Mobiles</h1>
+    <p>Explore the latest phones and find your perfect match.</p>
+  </header>
+  <div class="container">
+    <div class="phone-list">
+      <!-- Sample phone cards, replace with dynamic content -->
+      <% result.forEach(function(item) { %> 
+        <div class="phone-card">
+            <img src="/<%= item.image %>" alt="Phone 1">
+            <h2><%= item.model %>  <%= item.id %> </h2>
+            <p>Brand:  <%= item.make %> </p>
+            <p>Price: € <%= item.price %> </p>
+          </div>  
+        
+        
+        
+        
+        <% }); %>
+
+      
+      <!-- More phone cards can be added here -->
+    </div>
+    <a href="/add" class="add-game-link">Add A Phone</a>
+  </div>
+</body>
+</html>
