@@ -71,6 +71,18 @@
     .add-game-link:hover {
       background-color: #45a049;
     }
+
+    a {
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+    }
+
+   .phone-card a:hover {
+     
+      color: #e70808;
+      
+    }
   </style>
 </head>
 <body>
@@ -84,8 +96,9 @@
       <% result.forEach(function(item) { %> 
         <div class="phone-card">
             <img src="/<%= item.image %>" alt="Phone 1">
-            <h2><%= item.model %>  <%= item.id %> </h2>
-            <p>Brand:  <%= item.make %> </p>
+            <a href="/individual/<%= item.id %>">See this phone</a>  
+            <h3> Hello<%= item.make %></h3>
+            <p>Brand:<a href="/make/<%= item.model %> "><%= item.model %></a> </p>
             <p>Price: € <%= item.price %> </p>
           </div>  
         

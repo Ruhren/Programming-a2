@@ -15,11 +15,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 // ******************************** Start of SQL **************************************** //
 // First we need to tell the application where to find the database
 const db = mysql.createConnection({
-host: '127.0.0.1',
-    user: 'root',
-    port: '3306',
-    password: 'root',
-    database: 'mobileapp'
+// host: '127.0.0.1',
+//     user: 'root',
+//     port: '3306',
+//     password: 'root',
+//     database: 'mobileapp'
+    host: 'den1.mysql1.gear.host',
+    user: 'nci',
+    password: 'Yo7A_B09i4?1',
+    database: 'NCI'
  });
 
 //  connection to the database
@@ -36,7 +40,7 @@ db.connect((err) =>{
 
 // **********************************  Code from here **************************
 app.get('/', function(req,res){
-    let sql = 'SELECT * FROM mobile';
+    let sql = 'SELECT * FROM ruha';
     let query = db.query(sql, (err,result) => {
         if(err) throw err;
         console.log(result);
@@ -57,7 +61,7 @@ app.get('/add', function(req,res){
 
 
 app.post('/add', function(req,res){
-    let sql = 'insert into mobile ( model, make,price,image) values (?, ?,?,?)';
+    let sql = 'insert into ruha ( model, make,price,image) values (?, ?,?,?)';
     let query = db.query(sql,[req.body.model, req.body.make,req.body.price,req.body.image], (err,result) => {
         if(err) throw err;
         console.log(result);
@@ -67,7 +71,7 @@ app.post('/add', function(req,res){
     
 })
 
-app.get('/individual/:id', function(req,res){    let sql = 'SELECT * FROM mobile WHERE id = ?';
+app.get('/individual/:id', function(req,res){    let sql = 'SELECT * FROM ruha WHERE id = ?';
 let query = db.query(sql,[req.params.id], (err,result) => {
     if(err) throw err;
     console.log(result);
@@ -75,11 +79,13 @@ let query = db.query(sql,[req.params.id], (err,result) => {
 
 });// going to the page that filters the mobiles by id
 
-app.get('/make/:make', function(req,res){    let sql = 'SELECT * FROM mobile WHERE make = ?';
-let query = db.query(sql,[req.params.make], (err,result) => {
+app.get('/make/:model', function(req,res){   
+    
+    let sql = 'SELECT * FROM ruha WHERE model = ?';
+let query = db.query(sql,[req.params.model], (err,result) => {
     if(err) throw err;
     console.log(result);
-    res.render('make', {result})   })
+    res.render('model', {result})   })
 
 });// going to the page that filters the mobile by make
 
