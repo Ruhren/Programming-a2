@@ -8,6 +8,7 @@
   <title>Welcome to Phone World</title>
   <meta name="description" content="Explore the latest phones and find your perfect match.">
   <meta name="author" content="Phone World Team">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Include SweetAlert2 -->
   <link rel="stylesheet" href="stylesheet.css">
   <style>
     /* Additional styles can be placed here */
@@ -90,6 +91,8 @@
     <h1>Welcome to Ruha Mobiles</h1>
     <p>Explore the latest phones and find your perfect match.</p>
   </header>
+
+ 
   <div class="container">
     <div class="phone-list">
       <!-- Sample phone cards, replace with dynamic content -->
@@ -97,7 +100,8 @@
         <div class="phone-card">
             <img src="/<%= item.image %>" alt="Phone 1">
             <a href="/individual/<%= item.id %>">See this phone</a>  
-            <h3> Hello<%= item.make %></h3>
+            <a href="#" class="delete-btn" data-id="<%= item.id %>">Delete this phone</a> 
+            <h3><%= item.make %></h3>
             <p>Brand:<a href="/make/<%= item.model %> "><%= item.model %></a> </p>
             <p>Price: € <%= item.price %> </p>
           </div>  
@@ -112,5 +116,34 @@
     </div>
     <a href="/add" class="add-game-link">Add A Phone</a>
   </div>
+
+
+  <script>
+    document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action of the link
+        
+        const phoneId = this.getAttribute('data-id');
+        
+        // Show Sweet Alert confirmation
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You will not be able to recover this phone!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If user confirms, redirect to delete endpoint
+            window.location.href = `/delete/${phoneId}`;
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // If user cancels, do nothing
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

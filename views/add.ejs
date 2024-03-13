@@ -73,13 +73,37 @@
     </style>
   </head>
   <body>
-    <form action="/add" method="post">
+    <header>
+      <h1>Welcome to Ruha Mobiles</h1>
+      <p>Explore the latest phones and find your perfect match.</p>
+    </header>
+    <form action="/add"  enctype="multipart/form-data" method="post">
       <h1>Add a new phone</h1>
       <input type="text" placeholder="Make" name="make">
       <input type="text" placeholder="Model" name="model">
       <input type="number" placeholder="Price" name="price">
-      <input type="text" placeholder="Image URL" name="image">
-      <input type="submit" value="Create">
+      <label style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        <span id="file-name-label">Choose an Image</span>
+        <input type="file" style="display: none;" name="image" accept="image/*" onchange="displayFileName(this)" >
+    </label>
+    <br>    
+    <br>    
+    
+    <input type="submit" class="button" value="Upload" style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;"/>
+    </form>
+    <script>
+    function displayFileName(input) {
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileNameLabel = document.getElementById('file-name-label');
+    
+    if (fileInput.files.length > 0) {
+        fileNameLabel.textContent = fileInput.files[0].name;
+    } else {
+        fileNameLabel.textContent = 'Choose an Image';
+    }
+    }
+    </script>
+      
     </form>
   </body>
 </html>

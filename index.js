@@ -1,14 +1,37 @@
 var express = require("express");
+const multer = require('multer');
+const path = require('path');
+const sharp = require('sharp')
+const fs = require('fs');
+
 var app = express();
 var mysql = require('mysql');
 
 app.use(express.static("views")); 
 app.use(express.static("images"));  
-
+app.use(express.static("style"));  
+app.use(express.static("partials")); 
 app.set('view engine', 'ejs'); // Set the template engine 
 
 var bodyParser = require("body-parser") // call body parser module and make use of it
 app.use(bodyParser.urlencoded({extended:true}));
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './images/');
+    },
+   
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+   
+  var upload = multer({ storage: storage })
+
+  app.use(express.static("uploads"));
+  app.use(express.static("uploads/resized"));
+
+
 
 
 
@@ -60,9 +83,19 @@ app.get('/add', function(req,res){
 
 
 
-app.post('/add', function(req,res){
+app.post('/add',upload.single("image"), async function(req,res){
+    const {filename:image} = req.file;
+    await sharp(req.file.path)
+    .resize(500,500)
+    .jpeg({ quality:90})
+    .toFile(
+        path.resolve(req.file.destination,'resized',image)
+    )
+
+
+
     let sql = 'insert into ruha ( model, make,price,image) values (?, ?,?,?)';
-    let query = db.query(sql,[req.body.model, req.body.make,req.body.price,req.body.image], (err,result) => {
+    let query = db.query(sql,[req.body.model, req.body.make,req.body.price,req.file.filename], (err,result) => {
         if(err) throw err;
         console.log(result);
         res.redirect( '/')   
@@ -89,11 +122,41 @@ let query = db.query(sql,[req.params.model], (err,result) => {
 
 });// going to the page that filters the mobile by make
 
+app.get('/upload', function(req,res){
+ 
+    res.render( 'upload')   
+
+
+})
+
+app.post('/upload', upload.single("image"), async function(req, res){
+    const { filename: image } = req.file;      
+    await sharp(req.file.path)
+        .resize(500, 500)
+        .jpeg({ quality: 90 })
+        .toFile(
+            path.resolve(req.file.destination,'images',image)
+        )
+        
+  
+  
+    
+    res.redirect('/');
+  });
+// uploads page
+
 
    
 
     
+app.get('/delete/:id', function(req,res){    
+    let sql = 'DELETE FROM ruha WHERE id = ?';
+let query = db.query(sql,[req.params.id], (err,result) => {
+    if(err) throw err;
+    console.log(result);
+    res.redirect('/')   })
 
+});
 
 
 

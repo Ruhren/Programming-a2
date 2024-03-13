@@ -1,0 +1,26 @@
+
+
+<form action="/upload" enctype="multipart/form-data" method="post">
+
+<label style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    <span id="file-name-label">Choose an Image</span>
+    <input type="file" style="display: none;" name="image" accept="image/*" onchange="displayFileName(this)" >
+</label>
+<br>    
+<br>    
+
+<input type="submit" class="button" value="Upload" style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;"/>
+</form>
+<script>
+function displayFileName(input) {
+const fileInput = document.querySelector('input[type="file"]');
+const fileNameLabel = document.getElementById('file-name-label');
+
+if (fileInput.files.length > 0) {
+    fileNameLabel.textContent = fileInput.files[0].name;
+} else {
+    fileNameLabel.textContent = 'Choose an Image';
+}
+}
+</script>
+ 

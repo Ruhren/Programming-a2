@@ -28,8 +28,8 @@
   <title>This phone</title>
   <meta name="description" content="description">
   <meta name="author" content="author">
-  <meta name="keywords" content="keywords">
-  <link rel="stylesheet" href="./stylesheet.css" type="text/css">
+  <meta name="keywords" content="phones, apple, samsung">
+  <link rel="stylesheet" href="../../../../../../../../../../stylesheet.css" type="text/css">
   <style type="text/css">
     body {
       font-family: Arial, sans-serif;
@@ -61,8 +61,13 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Welcome to Ruha Mobiles</h1>
+    <p>Explore the latest phones and find your perfect match.</p>
+  </header>
   <div class="phone-list">
-    <% result.forEach(function(item) { %>
+    
+    <% result.forEach(function(item) {%>
       <div class="phone-item">
         <span>ID:</span><%= item.id %><br>
         <span>Make:</span><%= item.make %><br>
@@ -71,7 +76,9 @@
         <!-- <img src="<%= item.image %>" alt="Phone Image"> -->
         <img src="/<%= item.image %>" alt="Phone 1">
       </div>
-    <% }); %>
+    <%}); %>
   </div>
+
+
 </body>
 </html>
