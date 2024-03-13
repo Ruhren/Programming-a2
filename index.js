@@ -2,7 +2,7 @@ var express = require("express");
 const multer = require('multer');
 const path = require('path');
 const sharp = require('sharp')
-const fs = require('fs');
+const fs = require('fs');// creating variables to use all the installed dependancies  
 
 var app = express();
 var mysql = require('mysql');
@@ -10,7 +10,7 @@ var mysql = require('mysql');
 app.use(express.static("views")); 
 app.use(express.static("images"));  
 app.use(express.static("style"));  
-app.use(express.static("partials")); 
+app.use(express.static("partials")); // instructing the app to use the folders created in the project
 app.set('view engine', 'ejs'); // Set the template engine 
 
 var bodyParser = require("body-parser") // call body parser module and make use of it
@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
   var upload = multer({ storage: storage })
 
   app.use(express.static("uploads"));
-  app.use(express.static("uploads/resized"));
+  app.use(express.static("uploads/resized"));// setting up where to store the uploaded images
 
 
 
@@ -122,28 +122,28 @@ let query = db.query(sql,[req.params.model], (err,result) => {
 
 });// going to the page that filters the mobile by make
 
-app.get('/upload', function(req,res){
+// app.get('/upload', function(req,res){
  
-    res.render( 'upload')   
+//     res.render( 'upload')   
 
 
-})
+// })                  THIS CODE WAS USED TO ADD THE UPLOAD OPTION FOR THE WEBSITE, CURRENTLY NOT USED AS A PAGE
 
-app.post('/upload', upload.single("image"), async function(req, res){
-    const { filename: image } = req.file;      
-    await sharp(req.file.path)
-        .resize(500, 500)
-        .jpeg({ quality: 90 })
-        .toFile(
-            path.resolve(req.file.destination,'images',image)
-        )
+// app.post('/upload', upload.single("image"), async function(req, res){
+//     const { filename: image } = req.file;      
+//     await sharp(req.file.path)
+//         .resize(500, 500)
+//         .jpeg({ quality: 90 })
+//         .toFile(
+//             path.resolve(req.file.destination,'images',image)
+//         )
         
   
   
     
-    res.redirect('/');
-  });
-// uploads page
+//     res.redirect('/');
+//   });
+// uploads page   THIS CODE WAS USED TO ADD THE UPLOAD OPTION FOR THE WEBSITE, CURRENTLY NOT USED AS A PAGE
 
 
    
@@ -156,7 +156,7 @@ let query = db.query(sql,[req.params.id], (err,result) => {
     console.log(result);
     res.redirect('/')   })
 
-});
+}); // THIS lets you delete a phone
 
 
 
