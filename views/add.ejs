@@ -1,109 +1,104 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a Phone</title>
-    <meta name="description" content="description"/>
-    <meta name="author" content="author" />
-    <meta name="keywords" content="keywords" />
-    <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
-    <style type="text/css">.body { width: auto; }</style>
-  </head>
-  <body>
-    <form action="/add" method="post">
-      <h1>Add a new phone</h1>
-      <input type="text" placeholder="make" name="make">
-      <input type="text" placeholder="model" name="model">
-      <input type="number" placeholder="price" name="price">
-      <input type="text" placeholder="image" name="image">
-      <input type="submit" value="create">
-      
-      
-      </form>
-  </body>
-</html> -->
+
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a Phone</title>
-    <meta name="description" content="description"/>
-    <meta name="author" content="author" />
-    <meta name="keywords" content="keywords" />
-    <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
-    <style type="text/css">
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-      }
-      form {
-        max-width: 400px;
-        margin: 50px auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      input[type="text"],
-      input[type="number"],
-      input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 16px;
-      }
-      input[type="submit"] {
-        background-color: #007bff;
-        color: #fff;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      input[type="submit"]:hover {
-        background-color: #0056b3;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to Ruha Mobiles</h1>
-      <p>Explore the latest phones and find your perfect match.</p>
-    </header>
-    <form action="/add"  enctype="multipart/form-data" method="post">
-      <h1>Add a new phone</h1>
-      <input type="text" placeholder="Make" name="make">
-      <input type="text" placeholder="Model" name="model">
-      <input type="number" placeholder="Price" name="price">
-      <label style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
-        <span id="file-name-label">Choose an Image</span>
-        <input type="file" style="display: none;" name="image" accept="image/*" onchange="displayFileName(this)" >
-    </label>
-    <br>    
-    <br>    
-    
-    <input type="submit" class="button" value="Upload" style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;"/>
-    </form>
-    <script>
-    function displayFileName(input) {
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add a Phone</title>
+  <meta name="description" content="description" />
+  <meta name="author" content="author" />
+  <meta name="keywords" content="keywords" />
+  <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
+  <style type="text/css">
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welcome to Ruha Mobiles</h1>
+  <p>Explore the latest phones and find your perfect match.</p>
+</header>
+<form action="/add" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+  <h1>Add a new phone</h1>
+  <input type="text" placeholder="Make" name="make">
+  <input type="text" placeholder="Model" name="model">
+  <input type="number" placeholder="Price" name="price">
+  <label style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    <span id="file-name-label">Choose an Image</span>
+    <input type="file" style="display: none;" name="image" accept="image/*" onchange="displayFileName(this)">
+  </label>
+  <p style="color: black; font-size: 12px;">Only image file types accepted Eg.png,jpeg </p>
+  <br>
+  <br>
+  <input type="submit" class="button" value="Upload" style="display: inline-block; background-color: #0077FF; color: #fff; padding: 10px 20px; border-radius: 5px; cursor: pointer;"/>
+</form>
+<script>
+  function displayFileName(input) {
     const fileInput = document.querySelector('input[type="file"]');
     const fileNameLabel = document.getElementById('file-name-label');
-    
+
     if (fileInput.files.length > 0) {
-        fileNameLabel.textContent = fileInput.files[0].name;
+      fileNameLabel.textContent = fileInput.files[0].name;
     } else {
-        fileNameLabel.textContent = 'Choose an Image';
+      fileNameLabel.textContent = 'Choose an Image';
     }
+  }
+
+  function validateForm() {
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput.files.length === 0) {
+      alert('Please choose an image to upload.');
+      return false; // Prevent form submission
     }
-    </script>
-      
-    </form>
-  </body>
+    const fileType = fileInput.files[0].type;
+    if (!fileType.startsWith('image/')) {
+      alert('Only image file types are accepted. Eg. png, jpeg.');
+      return false; // Prevent form submission
+    }
+    return true; // Allow form submission
+  }
+</script>
+</body>
 </html>

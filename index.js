@@ -91,7 +91,15 @@ app.post('/add',upload.single("image"), async function(req,res){
     .toFile(
         path.resolve(req.file.destination,'resized',image)
     )
-
+    
+//     sharp.jpeg((err) =>{
+//         if(err){
+//            alert("Upload correct file type");
+//        } 
+//         else{
+//            alert('Looking good , uploaded');
+//        }
+//    })
 
 
     let sql = 'insert into ruha ( model, make,price,image) values (?, ?,?,?)';
@@ -160,10 +168,37 @@ let query = db.query(sql,[req.params.id], (err,result) => {
 
 
 
+app.get('/error', function(req,res){
+
+    res.render('notfound')
+  
+  
+  })
+  
+  app.get('/servererror', function(req,res){
+  
+    res.render('broken')
+  
+  
+  })
 
 
-
-
+  app.use((req, res, next) => {
+    res.status(404);
+    res.redirect('/error'); // Render a specific 404 page
+    // or
+    // res.json({ error: 'Not Found' }); // Send a JSON response
+  });
+  
+  // Global error handling
+  app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500);
+    res.redirect('/servererror'); // Render a general error page
+    // or
+    // res.json({ error: 'Internal Server Error' }); // Send a JSON response
+  });
+  
 
 
 // **********************************  Code to here **************************

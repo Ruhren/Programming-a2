@@ -99,8 +99,11 @@
       <% result.forEach(function(item) { %> 
         <div class="phone-card">
             <img src="/<%= item.image %>" alt="Phone 1">
-            <a href="/individual/<%= item.id %>">See this phone</a>  
-            <a href="#" class="delete-btn" data-id="<%= item.id %>">Delete this phone</a> 
+            <a href="/individual/<%= item.id %>">See this phone</a><br>
+            <div>
+              <a href="#" class="delete-btn" data-id="<%= item.id %>">Delete this phone</a>
+            </div>
+            
             <h3><%= item.make %></h3>
             <p>Brand:<a href="/make/<%= item.model %> "><%= item.model %></a> </p>
             <p>Price: € <%= item.price %> </p>
